@@ -1,0 +1,22 @@
+{
+    "name": "consilience/laravel-extended-logging",
+    "description": "Extend Laravel and Lumen logging to better support containers",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jason Judge",
+            "email": "jason.judge@consil.co.uk"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Consilience\\Laravel\\ExtendedLogging\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^7.3|^7.4",
+        "illuminate/support": "~5.8|^6.0"
+    }
+}
