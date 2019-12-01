@@ -17,7 +17,7 @@ class JobNameProcessor implements ProcessorInterface
         $jobName = app(LoggingService::class)->getJobName();
 
         if ($jobName) {
-            $record['extra']['jobName'] = $jobName;
+            $record['extra']['job_name'] = $jobName;
         }
 
         return $record;
