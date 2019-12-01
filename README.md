@@ -1,9 +1,8 @@
 
 # Laravel and Lumen Extended Logging
 
-The purpose of this package is to provide some ready-made logging
-extensions to make it easier to deply Laravel and Lumen into multiple
-containers.
+Provide some ready-made logging extensions to make it easier to deply
+Laravel and Lumen into multiple containers.
 
 The main features are:
 
@@ -18,8 +17,8 @@ Until released to packagist, in `composer.json`:
 ```json
     "repositories": [
         {
-            "type": "path",
-            "url": "packages/laravel-extended-logging"
+            "type": "vcs",
+            "url": "https://github.com/consilience/laravel-extended-logging.git"
         }
     ]
 ```
