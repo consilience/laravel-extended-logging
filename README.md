@@ -25,7 +25,12 @@ Until released to packagist, in `composer.json`:
 
 Then:
 
-    php composer require consilience/laravel-extended-logging
+    php composer require "consilience/laravel-extended-logging: *"
+
+Lumen requires the provider to be registered in `bootstrap/app.php` so that the
+package can keep track of the name of the job currently running:
+
+    $app->register(Consilience\Laravel\ExtendedLogging\LoggingServiceProvider::class);
 
 ## Configuration
 
@@ -74,3 +79,4 @@ configuration script, by adding a channel.
 * Config to turn features on and off.
 * Log classname of running job.
   A listener may be needed to grap the job class when it is initiated.
+* Start some official releases.

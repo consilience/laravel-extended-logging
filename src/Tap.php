@@ -13,6 +13,7 @@ use Monolog\Processor\MemoryUsageProcessor;
 
 use Consilience\Laravel\ExtendedLogging\Processor\AuthUserProcessor;
 use Consilience\Laravel\ExtendedLogging\Processor\AppNameProcessor;
+use Consilience\Laravel\ExtendedLogging\Processor\JobNameProcessor;
 
 class Tap
 {
@@ -35,6 +36,7 @@ class Tap
 
             $handler->pushProcessor(new AuthUserProcessor());
             $handler->pushProcessor(new AppNameProcessor());
+            $handler->pushProcessor(new JobNameProcessor());
 
             // Standard monolog processors.
 

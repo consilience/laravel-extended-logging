@@ -18,5 +18,12 @@
     "require": {
         "php": "^7.3|^7.4",
         "illuminate/support": "~5.8|^6.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Consilience\\Laravel\\ExtendedLogging\\LoggingServiceProvider"
+            ]
+        }
     }
 }
