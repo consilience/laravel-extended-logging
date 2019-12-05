@@ -6,13 +6,15 @@ Laravel and Lumen into multiple containers.
 
 The main features are:
 
-* A bunch of useful standard monolog processors
-* Laravel user ID.
+* A bunch of useful standard monolog processors.
+* Laravel user ID, if available.
+* Fully qualified class name of the job that is running.
+* A sequence number so logs can be reordered when they get mixed up.
 * Application name and subsystem name.
 
 ## Installation
 
-Until released to packagist, in `composer.json`:
+While under early development, in `composer.json`:
 
 ```json
     "repositories": [
@@ -38,6 +40,14 @@ The main configiration happens through the Laravel `config/logging.php`
 configuration script, by adding a channel.
 
 ```php
+<?php
+
+use Monolog\Handler\StreamHandler;
+use Monolog\Formatter\JsonFormatter;
+use Consilience\Laravel\ExtendedLogging\Tap as ExtendedTap;
+
+// ...
+
     'channels' => [
         'stderr' => [
             //
@@ -49,7 +59,7 @@ configuration script, by adding a channel.
             // to configure it.
             // Handlers can be found in \Monolog\Handler namespace.
             //
-            'handler' => Monolog\Handler\StreamHandler::class,
+            'handler' => StreamHandler::class,
             //
             // Parameters for the monolog handler.
             //
@@ -61,13 +71,13 @@ configuration script, by adding a channel.
             // Multiple taps from other packages can be used to enhance further.
             //
             'tap' => [
-                Consilience\Laravel\ExtendedLogging\Tap::class,
+                ExtendedTap::class,
             ],
             //
             // The output formatter.
             // The standard Monolog json formatter has a structure of its own.
             //
-            'formatter' => Monolog\Formatter\JsonFormatter::class,
+            'formatter' => JsonFormatter::class,
             'formatter_with' => [],
         ],
     ],
@@ -77,6 +87,4 @@ configuration script, by adding a channel.
 
 * Tests.
 * Config to turn features on and off.
-* Log classname of running job.
-  A listener may be needed to grap the job class when it is initiated.
 * Start some official releases.
