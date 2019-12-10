@@ -1,7 +1,11 @@
+[![Latest Stable Version](https://poser.pugx.org/consilience/laravel-extended-logging/v/stable)](https://packagist.org/packages/consilience/laravel-extended-logging)
+[![Total Downloads](https://poser.pugx.org/consilience/laravel-extended-logging/downloads)](https://packagist.org/packages/consilience/laravel-extended-logging)
+[![Latest Unstable Version](https://poser.pugx.org/consilience/laravel-extended-logging/v/unstable)](https://packagist.org/packages/consilience/laravel-extended-logging)
+[![License](https://poser.pugx.org/consilience/laravel-extended-logging/license)](https://packagist.org/packages/consilience/laravel-extended-logging)
 
 # Laravel and Lumen Extended Logging
 
-Provide some ready-made logging extensions to make it easier to deply
+Provide some ready-made logging extensions to make it easier to deploy
 Laravel and Lumen into multiple containers.
 
 The main features are:
