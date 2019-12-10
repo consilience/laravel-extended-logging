@@ -53,14 +53,13 @@ use Consilience\Laravel\ExtendedLogging\Tap as ExtendedTap;
 // ...
 
     'channels' => [
-        'stderr' => [
+        'my-extended-logging-channel' => [
             //
-            // monolog is the bare driver.
+            // monolog is the underlying driver.
             //
             'driver' => 'monolog',
             //
-            // This is the handler to use within monolog, with any parameters
-            // to configure it.
+            // This is the handler to use within monolog, with any parameters to configure it.
             // Handlers can be found in \Monolog\Handler namespace.
             //
             'handler' => StreamHandler::class,
@@ -72,14 +71,14 @@ use Consilience\Laravel\ExtendedLogging\Tap as ExtendedTap;
             ],
             //
             // The custom tap to offer additional manipulation of the log output.
-            // Multiple taps from other packages can be used to enhance further.
+            // Other taps from other packages can be added here to extend further.
             //
             'tap' => [
                 ExtendedTap::class,
             ],
             //
             // The output formatter.
-            // The standard Monolog json formatter has a structure of its own.
+            // The standard Monolog json formatter has a good structure that is easy to parse.
             //
             'formatter' => JsonFormatter::class,
             'formatter_with' => [],
@@ -91,4 +90,3 @@ use Consilience\Laravel\ExtendedLogging\Tap as ExtendedTap;
 
 * Tests.
 * Config to turn features on and off.
-* Start some official releases.
