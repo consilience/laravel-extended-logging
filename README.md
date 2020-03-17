@@ -86,6 +86,62 @@ use Consilience\Laravel\ExtendedLogging\Tap as ExtendedTap;
     ],
 ```
 
+## Example Usage
+
+We run Laravel and Lumen applications in a Kubernetes/Docker environment,
+with all log entries being indexed by elastic search and presented by Kibana.
+This lumps all our logs from multiple applications, multiple pods and containers,
+and multiple jobs, into one big database.
+
+To search and filter those log entries, it is vital for context information to
+be logged in a filterable way.
+
+The `PsrLogMessageProcessor`, included in this log tap, makes it very easy to combine
+context data and log message construction.
+Logging looks like this as a result, with both a context array of data, and the log
+message with field replacements done:
+
+```php
+Log::debug('Product {productId} added to category {categorySlug}', [
+    'productId' => $product->id,
+    'productName' => $product->name,
+    'categorySlug' => $category->slug,
+]);
+```
+
+The generated log message would look something like this, embedded into
+whatever you use to capture and wrap the log messages.
+
+```json
+  "_source": {
+    "@timestamp": "2020-03-17T11:45:15.573Z",
+    "stream": "stderr",
+    "time": "2020-03-17T11:45:15.57341869Z",
+    "message": "Product 123 added to category good-stuff",
+    "context": {
+      "productId": 123,
+      "productName": "A Nice Slice of Cake",
+      "categorySlug": "good-stuff",
+    },
+    "level": 100,
+    "level_name": "DEBUG",
+    "channel": "development",
+    "datetime": {
+      "date": "2020-03-17 11:45:15.572810",
+      "timezone_type": 3,
+      "timezone": "UTC"
+    },
+    "extra": {
+      "memory_usage": "24 MB",
+      "process_id": 1,
+      "uid": "58bcec3ef88a7ceb",
+      "job_name": "App\\Jobs\\ImportProductCategories",
+      "application": "great-shop",
+      "subsystem": "admin-app"
+    },
+  },
+```    
+
 ## TODO
 
 * Tests.
