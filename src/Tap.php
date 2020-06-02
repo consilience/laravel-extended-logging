@@ -41,8 +41,6 @@ class Tap
             $handler->pushProcessor(new MemoryUsageProcessor);
 
             // Additional options.
-            $handler->getFormatter()->setJsonPrettyPrint(true);
-            $handler->getFormatter()->setJsonPrettyPrint(false);
 
             if (method_exists($handler->getFormatter(), 'setJsonPrettyPrint')) {
                 if ((bool)config('laravel-extended-logging.json-pretty-print')) {
