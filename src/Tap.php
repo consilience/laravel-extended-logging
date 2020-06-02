@@ -19,11 +19,6 @@ class Tap
 {
     protected $uidLength = 16;
 
-    public function __construct()
-    {
-        // TODO: set up config.
-    }
-
     public function __invoke($logger)
     {
         // For each handler this tap has been attached to, add a series of
@@ -44,6 +39,20 @@ class Tap
             $handler->pushProcessor(new PsrLogMessageProcessor);
             $handler->pushProcessor(new ProcessIdProcessor);
             $handler->pushProcessor(new MemoryUsageProcessor);
+
+            // Additional options.
+            $handler->getFormatter()->setJsonPrettyPrint(true);
+            $handler->getFormatter()->setJsonPrettyPrint(false);
+
+            if (method_exists($handler->getFormatter(), 'setJsonPrettyPrint')) {
+                if ((bool)config('laravel-extended-logging.json-pretty-print')) {
+                    $handler->getFormatter()->setJsonPrettyPrint(true);
+                } else {
+                    // A current bug in monolog causes `false` to toggle the flag rather than reset it.
+                    $handler->getFormatter()->setJsonPrettyPrint(true);
+                    $handler->getFormatter()->setJsonPrettyPrint(false);
+                }
+            }
         }
     }
 }

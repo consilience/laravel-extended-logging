@@ -40,7 +40,7 @@ package can keep track of the name of the job currently running:
 
 ## Configuration
 
-The main configiration happens through the Laravel `config/logging.php`
+The main configuration happens through the Laravel `config/logging.php`
 configuration script, by adding a channel.
 
 ```php
@@ -114,6 +114,15 @@ use Consilience\Laravel\ExtendedLogging\Tap as ExtendedTap;
 
 Then set `LOG_CHANNEL=container` when running in a container to send all logs to `stderr`.
 Use other channels for other environments.
+
+Additional options are available by publishing the config file (`laravel-extended-logging.php`)
+for the package:
+
+    php artisan vendor:publish --tag=laravel-extended-logging-config
+
+Just one option is supported at this time:
+
+* `json-pretty-print` - set to `true` to format the JSON output to be more human readable
 
 ## Example Usage
 

@@ -48,6 +48,12 @@ class LoggingServiceProvider extends ServiceProvider
 
             app(LoggingService::class)->resetJobName();
         });
+
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/../config/laravel-extended-logging.php' => config_path('laravel-extended-logging.php'),
+            ], 'laravel-extended-logging-config');
+        }
     }
 
     public function register()
@@ -55,5 +61,10 @@ class LoggingServiceProvider extends ServiceProvider
         $this->app->singleton(LoggingService::class, function ($app) {
             return new LoggingService();
         });
+
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/laravel-extended-logging.php',
+            'laravel-extended-logging'
+        );
     }
 }
