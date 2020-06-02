@@ -94,7 +94,9 @@ use Monolog\Formatter\JsonFormatter;
 use Consilience\Laravel\ExtendedLogging\Tap as ExtendedTap;
 ```
 
-```json
+```php
+    'channels' => [
+    
         // Use this channel for running in a container.
         // Sends all logs to stderr in a structured form, with additional metadata.
         // Can be mixed in a stack with other channels.
@@ -110,6 +112,9 @@ use Consilience\Laravel\ExtendedLogging\Tap as ExtendedTap;
             'formatter' => JsonFormatter::class,
             'formatter_with' => [],
         ],
+        
+        //...
+    ],
 ```
 
 Then set `LOG_CHANNEL=container` when running in a container to send all logs to `stderr`.
