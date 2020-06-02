@@ -86,6 +86,35 @@ use Consilience\Laravel\ExtendedLogging\Tap as ExtendedTap;
     ],
 ```
 
+A shortened version of the config entry, to go into the `channels` section of `config/logging.php`:
+
+```php
+use Monolog\Handler\StreamHandler; // Most likely already present.
+use Monolog\Formatter\JsonFormatter;
+use Consilience\Laravel\ExtendedLogging\Tap as ExtendedTap;
+```
+
+```json
+        // Use this channel for running in a container.
+        // Sends all logs to stderr in a structured form, with additional metadata.
+        // Can be mixed in a stack with other channels.
+        'container' => [
+            'driver' => 'monolog',
+            'handler' => StreamHandler::class,
+            'with' => [
+                'stream' => 'php://stderr',
+            ],
+            'tap' => [
+                ExtendedTap::class,
+            ],
+            'formatter' => JsonFormatter::class,
+            'formatter_with' => [],
+        ],
+```
+
+Then set `LOG_CHANNEL=container` when running in a container to send all logs to `stderr`.
+Use other channels for other environments.
+
 ## Example Usage
 
 We run Laravel and Lumen applications in a Kubernetes/Docker environment,
