@@ -15,23 +15,11 @@ The main features are:
 * Fully qualified class name of the job that is running.
 * A sequence number so logs can be reordered when they get mixed up.
 * Application name and subsystem name.
+* Logs written in structured JSON
 
 ## Installation
 
-While under early development, in `composer.json`:
-
-```json
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/consilience/laravel-extended-logging.git"
-        }
-    ]
-```
-
-Then:
-
-    php composer require "consilience/laravel-extended-logging: *"
+    php composer require consilience/laravel-extended-logging
 
 Lumen requires the provider to be registered in `bootstrap/app.php` so that the
 package can keep track of the name of the job currently running:
@@ -61,10 +49,12 @@ use Consilience\Laravel\ExtendedLogging\Tap as ExtendedTap;
             //
             // This is the handler to use within monolog, with any parameters to configure it.
             // Handlers can be found in \Monolog\Handler namespace.
+            // Here send to a file stream.
             //
             'handler' => StreamHandler::class,
             //
             // Parameters for the monolog handler.
+            // Here the file stream is stderr.
             //
             'with' => [
                 'stream' => 'php://stderr',
@@ -86,7 +76,7 @@ use Consilience\Laravel\ExtendedLogging\Tap as ExtendedTap;
     ],
 ```
 
-A shortened version of the config entry, to go into the `channels` section of `config/logging.php`:
+A more compact version of the config entry, to go into the `channels` section of `config/logging.php`:
 
 ```php
 use Monolog\Handler\StreamHandler; // Most likely already present.
@@ -118,7 +108,7 @@ use Consilience\Laravel\ExtendedLogging\Tap as ExtendedTap;
 ```
 
 Then set `LOG_CHANNEL=container` when running in a container to send all logs to `stderr`.
-Use other channels for other environments.
+Other channels may be more suitable for other environments.
 
 Additional options are available by publishing the config file (`laravel-extended-logging.php`)
 for the package:
@@ -188,4 +178,3 @@ whatever you use to capture and wrap the log messages.
 ## TODO
 
 * Tests.
-* Config to turn features on and off.
