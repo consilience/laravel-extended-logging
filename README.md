@@ -15,7 +15,13 @@ The main features are:
 * Fully qualified class name of the job that is running.
 * A sequence number so logs can be reordered when they get mixed up.
 * Application name and subsystem name.
-* Logs written in structured JSON
+* Logs written in structured JSON.
+
+The features applied to the logging here are lightweight, opinionated, mainly non-configurable,
+and are what we have found to be very useful for our own projects.
+We are happy to accept PRs for additional features, though with the consideration that this
+package is not intended to be "all singing, all dancing", but rather a quick and easy install
+that gets an application logging container-ready with minimal effort.
 
 ## Installation
 
