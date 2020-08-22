@@ -27,7 +27,7 @@ class AuthUserProcessor implements ProcessorInterface, ResettableInterface
     {
         $this->userId = null;
 
-        $this->userId = getUserId();
+        $this->userId = $this->getUserId();
     }
 
     /**
@@ -40,8 +40,12 @@ class AuthUserProcessor implements ProcessorInterface, ResettableInterface
             return $this->userId;
         }
 
-        if (Auth::check()) {
-            return $this->userId = Auth::user()->id;
+        try {
+            if (Auth::check()) {
+                return $this->userId = Auth::user()->id;
+            }
+        } catch (Throwable $throwable) {
+            // Discard exception
         }
     }
 }
