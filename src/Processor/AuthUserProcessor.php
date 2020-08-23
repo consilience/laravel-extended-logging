@@ -9,6 +9,7 @@ namespace Consilience\Laravel\ExtendedLogging\Processor;
 use Monolog\Processor\ProcessorInterface;
 use Monolog\ResettableInterface;
 use Illuminate\Support\Facades\Auth;
+use Throwable;
 
 class AuthUserProcessor implements ProcessorInterface, ResettableInterface
 {
