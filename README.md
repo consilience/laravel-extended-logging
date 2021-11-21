@@ -3,6 +3,17 @@
 [![Latest Unstable Version](https://poser.pugx.org/consilience/laravel-extended-logging/v/unstable)](https://packagist.org/packages/consilience/laravel-extended-logging)
 [![License](https://poser.pugx.org/consilience/laravel-extended-logging/license)](https://packagist.org/packages/consilience/laravel-extended-logging)
 
+<!-- TOC -->
+
+- [Laravel and Lumen Extended Logging](#laravel-and-lumen-extended-logging)
+    - [Installation](#installation)
+    - [Configuration](#configuration)
+        - [Configuration Upgrade](#configuration-upgrade)
+    - [Example Usage](#example-usage)
+    - [TODO](#todo)
+
+<!-- /TOC -->
+
 # Laravel and Lumen Extended Logging
 
 Provide some ready-made logging extensions to make it easier to deploy
@@ -24,6 +35,8 @@ package is not intended to be "all singing, all dancing", but rather a quick and
 that gets an application logging container-ready with minimal effort.
 
 ## Installation
+
+For Laravel:
 
     php composer require consilience/laravel-extended-logging
 
@@ -121,9 +134,19 @@ for the package:
 
     php artisan vendor:publish --tag=laravel-extended-logging-config
 
-Just one option is supported at this time:
+Two options are supported at this time:
 
 * `json-pretty-print` - set to `true` to format the JSON output to be more human readable
+* `processor` - a list of instantiated monolog processor objects
+
+The list of processors, by default, will include the custom processors provided by this
+package, and a few of the processors that monolog provides.
+You can remove what yoy don't want, and add any others you may need.
+
+### Configuration Upgrade
+
+Since release 1.2.0 the processors to run have been located in the config file.
+You will need to publish the config file again to use the processors.
 
 ## Example Usage
 

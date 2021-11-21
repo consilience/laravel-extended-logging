@@ -10,7 +10,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Queue\Events\JobFailed;
 use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Queue\Events\JobProcessing;
-use Queue;
+use Illuminate\Support\Facades\Queue;
 
 class LoggingServiceProvider extends ServiceProvider
 {
