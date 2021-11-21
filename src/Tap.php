@@ -6,18 +6,11 @@ namespace Consilience\Laravel\ExtendedLogging;
  * A tap to enable additional processors.
  */
 
-use Monolog\Processor\PsrLogMessageProcessor;
-use Monolog\Processor\UidProcessor;
-use Monolog\Processor\ProcessIdProcessor;
-use Monolog\Processor\MemoryUsageProcessor;
-
-use Consilience\Laravel\ExtendedLogging\Processor\AuthUserProcessor;
-use Consilience\Laravel\ExtendedLogging\Processor\AppNameProcessor;
-use Consilience\Laravel\ExtendedLogging\Processor\JobNameProcessor;
+use Monolog\Processor\ProcessorInterface;
 
 class Tap
 {
-    protected $uidLength = 16;
+    const UID_LENGTH = 16;
 
     public function __invoke($logger)
     {
@@ -27,18 +20,15 @@ class Tap
         // enabled.
 
         foreach ($logger->getHandlers() as $handler) {
-            // Custom processors.
 
-            $handler->pushProcessor(new AuthUserProcessor());
-            $handler->pushProcessor(new AppNameProcessor());
-            $handler->pushProcessor(new JobNameProcessor());
+            collect(config('laravel-extended-logging.processors'))
+                ->each(function ($processor) use ($handler) {
+                    if (! $processor instanceof ProcessorInterface) {
+                        return;
+                    }
 
-            // Standard monolog processors.
-
-            $handler->pushProcessor(new UidProcessor($this->uidLength));
-            $handler->pushProcessor(new PsrLogMessageProcessor);
-            $handler->pushProcessor(new ProcessIdProcessor);
-            $handler->pushProcessor(new MemoryUsageProcessor);
+                    $handler->pushProcessor($processor);
+                });
 
             // Additional options.
 
@@ -46,7 +36,9 @@ class Tap
                 if ((bool)config('laravel-extended-logging.json-pretty-print')) {
                     $handler->getFormatter()->setJsonPrettyPrint(true);
                 } else {
-                    // A current bug in monolog causes `false` to toggle the flag rather than reset it.
+                    // A workaround for a beug in older versions.
+                    // See https://github.com/Seldaek/monolog/issues/1469
+
                     $handler->getFormatter()->setJsonPrettyPrint(true);
                     $handler->getFormatter()->setJsonPrettyPrint(false);
                 }
