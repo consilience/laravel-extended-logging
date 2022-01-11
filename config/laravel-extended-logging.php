@@ -21,15 +21,15 @@ return [
     'processors' => [
         // Custom processors.
 
-        new AuthUserProcessor(),
-        new AppNameProcessor(),
-        new JobNameProcessor(),
+        AuthUserProcessor::class,
+        AppNameProcessor::class,
+        JobNameProcessor::class,
 
         // Standard monolog processors.
 
-        new UidProcessor(Tap::UID_LENGTH),
-        new PsrLogMessageProcessor,
-        new ProcessIdProcessor,
-        new MemoryUsageProcessor,  
+        UidProcessor::class => [Tap::UID_LENGTH],
+        PsrLogMessageProcessor::class,
+        ProcessIdProcessor::class,
+        MemoryUsageProcessor::class,
     ],
 ];

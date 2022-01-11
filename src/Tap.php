@@ -22,8 +22,22 @@ class Tap
         foreach ($logger->getHandlers() as $handler) {
 
             collect(config('laravel-extended-logging.processors'))
-                ->each(function ($processor) use ($handler) {
-                    if (! $processor instanceof ProcessorInterface) {
+                ->each(function ($processor, $key) use ($handler) {
+                    // Processor::class
+
+                    if (is_string($processor) && class_exists($processor)) {
+                        $processor = new $processor();
+                    }
+
+                    // Processor::class => [arguments, ...]
+
+                    if (is_string($key) && is_array($processor) && class_exists($key)) {
+                        $processor = new $key(...$processor);
+                    }
+
+                    // Processor (object)
+
+                    if (! is_object($processor) || ! $processor instanceof ProcessorInterface) {
                         return;
                     }
 
