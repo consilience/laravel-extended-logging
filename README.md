@@ -137,11 +137,21 @@ for the package:
 Two options are supported at this time:
 
 * `json-pretty-print` - set to `true` to format the JSON output to be more human readable
-* `processor` - a list of instantiated monolog processor objects
+* `processor` - a list of monolog processor classes
 
 The list of processors, by default, will include the custom processors provided by this
 package, and a few of the processors that monolog provides.
-You can remove what yoy don't want, and add any others you may need.
+You can remove what you don't want, and add any others you may need.
+
+If a processor accepts parameters, use this form:
+
+    Processor::class => [parameter1, parameter2, ...],
+
+Only positional parameters are supported at this time.
+
+The configuration file still accepts instantiated processor objects for legacy installs.
+You should change those to the uninstantiated `Processor::class` form to support configuration
+cacheing.
 
 ### Configuration Upgrade
 
