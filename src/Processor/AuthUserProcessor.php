@@ -25,7 +25,7 @@ class AuthUserProcessor implements ProcessorInterface, ResettableInterface
         return $record;
     }
 
-    public function reset()
+    public function reset(): void
     {
         $this->userId = null;
 

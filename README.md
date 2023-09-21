@@ -14,10 +14,10 @@
 
 <!-- /TOC -->
 
-# Laravel and Lumen Extended Logging
+# Laravel Extended Logging
 
 Provide some ready-made logging extensions to make it easier to deploy
-Laravel and Lumen into multiple containers.
+Laravel into multiple containers.
 
 The main features are:
 
@@ -105,7 +105,7 @@ use Consilience\Laravel\ExtendedLogging\Tap as ExtendedTap;
 
 ```php
     'channels' => [
-    
+
         // Use this channel for running in a container.
         // Sends all logs to stderr in a structured form, with additional metadata.
         // Can be mixed in a stack with other channels.
@@ -121,7 +121,7 @@ use Consilience\Laravel\ExtendedLogging\Tap as ExtendedTap;
             'formatter' => JsonFormatter::class,
             'formatter_with' => [],
         ],
-        
+
         //...
     ],
 ```
@@ -212,7 +212,7 @@ whatever you use to capture and wrap the log messages.
       "subsystem": "admin-app"
     },
   },
-```    
+```
 
 ## TODO
 

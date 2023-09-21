@@ -7,7 +7,6 @@ namespace Consilience\Laravel\ExtendedLogging\Processor;
  */
 
 use Monolog\LogRecord;
-use Monolog\ResettableInterface;
 use Monolog\Processor\ProcessorInterface;
 
 class AppNameProcessor implements ProcessorInterface
