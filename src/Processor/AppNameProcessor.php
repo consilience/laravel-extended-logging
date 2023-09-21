@@ -6,8 +6,9 @@ namespace Consilience\Laravel\ExtendedLogging\Processor;
  * Add the local user ID to extra if a user is logged in.
  */
 
-use Monolog\Processor\ProcessorInterface;
+use Monolog\LogRecord;
 use Monolog\ResettableInterface;
+use Monolog\Processor\ProcessorInterface;
 
 class AppNameProcessor implements ProcessorInterface
 {
@@ -20,16 +21,16 @@ class AppNameProcessor implements ProcessorInterface
         $this->subsystem = config('app.subsystem');
     }
 
-    public function __invoke(array $record)
+    public function __invoke(LogRecord $record)
     {
         // Add system and subsystem names.
 
         if ($this->application) {
-            $record['extra']['application'] = $this->application;
+            $record->extra['application'] = $this->application;
         }
 
         if ($this->subsystem) {
-            $record['extra']['subsystem'] = $this->subsystem;
+            $record->extra['subsystem'] = $this->subsystem;
         }
 
         return $record;
